@@ -1,0 +1,1084 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tuan Nguyen</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&display=swap" rel="stylesheet">
+
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Orbitron', 'Courier New', monospace;
+            background: #1a1a1e;
+            color: #e0e6ed;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 2rem;
+            overflow: hidden;
+            position: relative;
+            filter: contrast(1.08) brightness(0.95);
+            animation: subtleFlicker 60s ease-in-out infinite;
+            background: 
+                radial-gradient(ellipse 90% 95% at center, #1a1a1e 0%, #1a1a1e 80%, #15151a 95%, #0f0f12 100%);
+        }
+        
+        .container {
+            max-width: 400px;
+            width: 100%;
+            position: relative;
+            z-index: 10;
+            animation: subtleDrift 120s ease-in-out infinite;
+        }
+        
+        .name {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            letter-spacing: 0.05em;
+            text-transform: uppercase;
+            color: #f0f4f8;
+            position: relative;
+            text-shadow: 0 0 8px rgba(240, 244, 248, 0.3);
+            animation: subtleGlow 180s ease-in-out infinite;
+        }
+        
+        .name::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(90deg, 
+                transparent 0%, 
+                rgba(240, 244, 248, 0.1) 50%, 
+                transparent 100%);
+            transform: translateX(-100%);
+            animation: scanBeam 200s ease-in-out infinite;
+        }
+        
+        .tagline, .statement, .vision {
+            font-size: 13px;
+            margin-bottom: 1px;
+            color: #a2a8b4;
+            line-height: 1.4;
+            font-weight: 400;
+            letter-spacing: 0.03em;
+            text-shadow: 0 0 3px rgba(162, 168, 180, 0.2);
+        }
+        
+        .contact {
+            font-size: 12px;
+            color: #8b92a5;
+            margin-top: 20px;
+            letter-spacing: 0.02em;
+        }
+        
+        .contact a {
+            color: #b8c5d1;
+            text-decoration: none;
+            border-bottom: 1px solid #6b7280;
+            transition: all 0.3s ease;
+            text-shadow: 0 0 2px rgba(184, 197, 209, 0.2);
+        }
+        
+        .contact a:hover {
+            color: #f0f4f8;
+            border-bottom-color: #b8c5d1;
+            text-shadow: 0 0 5px rgba(240, 244, 248, 0.4);
+        }
+
+        .contact a:focus-visible {
+            outline: 1px solid #b8c5d1;
+        }
+        
+        /* Holographic grid */
+        .holo-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                repeating-linear-gradient(
+                    0deg,
+                    transparent 0px,
+                    rgba(139, 92, 246, 0.02) 1px,
+                    transparent 2px,
+                    transparent 40px
+                ),
+                repeating-linear-gradient(
+                    90deg,
+                    transparent 0px,
+                    rgba(6, 182, 212, 0.015) 1px,
+                    transparent 2px,
+                    transparent 60px
+                );
+            pointer-events: none;
+            z-index: 1;
+            animation: holoShift 12s ease-in-out infinite;
+        }
+        
+        /* Holographic vignette */
+        .holo-vignette {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center,
+                transparent 0%,
+                transparent 75%,
+                rgba(26, 22, 37, 0.3) 90%,
+                rgba(26, 22, 37, 0.8) 100%
+            );
+            pointer-events: none;
+            z-index: 8;
+        }
+        
+        /* Data stream */
+        .data-stream {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg,
+                transparent 0%,
+                rgba(139, 92, 246, 0.6) 20%,
+                rgba(6, 182, 212, 0.8) 50%,
+                rgba(139, 92, 246, 0.6) 80%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 6;
+            animation: dataFlow 15s linear infinite;
+            filter: blur(0.5px);
+            box-shadow: 0 0 3px rgba(139, 92, 246, 0.4);
+        }
+        
+        /* Particle field */
+        .particle-field {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 2;
+        }
+        
+        .particle {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            background: rgba(139, 92, 246, 0.4);
+            border-radius: 50%;
+            animation: particleFloat 20s linear infinite;
+        }
+        
+        .particle:nth-child(2n) {
+            background: rgba(6, 182, 212, 0.3);
+            animation-duration: 25s;
+            animation-delay: 5s;
+        }
+        
+        .particle:nth-child(3n) {
+            background: rgba(139, 92, 246, 0.2);
+            animation-duration: 30s;
+            animation-delay: 10s;
+        }
+        
+        /* Energy wave */
+        .energy-wave {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 8px;
+            background: linear-gradient(0deg,
+                transparent 0%,
+                rgba(139, 92, 246, 0.1) 25%,
+                rgba(6, 182, 212, 0.15) 50%,
+                rgba(139, 92, 246, 0.1) 75%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 7;
+            animation: energyFlow 20s linear infinite;
+            filter: blur(2px);
+            box-shadow: 0 0 10px rgba(139, 92, 246, 0.2);
+        }
+        
+        /* Holographic ambient */
+        .holo-ambient {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(circle at 30% 40%,
+                rgba(139, 92, 246, 0.02) 0%,
+                transparent 40%
+            ),
+            radial-gradient(circle at 70% 60%,
+                rgba(6, 182, 212, 0.015) 0%,
+                transparent 50%
+            );
+            pointer-events: none;
+            z-index: 2;
+            animation: ambientPulse 8s ease-in-out infinite;
+        }
+        
+        /* Holographic interference */
+        .holo-interference {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(139, 92, 246, 0.005);
+            pointer-events: none;
+            z-index: 9;
+            animation: holoFlicker 18s infinite;
+        }
+        
+        /* TV-like scan line */
+        .horizontal-sync {
+            position: fixed;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            background: linear-gradient(90deg, 
+                transparent 0%,
+                rgba(240, 244, 248, 0.2) 20%,
+                rgba(240, 244, 248, 0.4) 50%,
+                rgba(240, 244, 248, 0.2) 80%,
+                transparent 100%);
+            pointer-events: none;
+            z-index: 7;
+            animation: minimalScan 350s linear infinite;
+            box-shadow: 0 0 1px rgba(240, 244, 248, 0.1);
+        }
+        
+        /* Remove signal roll - too distracting */
+        .signal-roll {
+            display: none;
+        }
+        
+        /* Remove static band - too distracting */
+        .static-band {
+            display: none;
+        }
+        
+        /* Content displacement/jitter */
+        .content-jitter {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 8;
+            animation: contentDisplace 1.2s infinite;
+        }
+        
+        /* TV-style beams */
+        .tv-beam {
+            position: fixed;
+            top: 0;
+            width: 1px;
+            height: 100%;
+            background: linear-gradient(0deg,
+                transparent 0%,
+                rgba(240, 244, 248, 0.15) 25%,
+                rgba(240, 244, 248, 0.25) 50%,
+                rgba(240, 244, 248, 0.15) 75%,
+                transparent 100%
+            );
+            pointer-events: none;
+            z-index: 6;
+            animation: tvBeamSweep linear infinite;
+            left: -15px;
+            animation-duration: 100s;
+            box-shadow: 0 0 2px rgba(240, 244, 248, 0.1);
+        }
+        
+        .tv-beam:nth-child(10) {
+            animation-duration: 130s;
+            animation-delay: 50s;
+            width: 1px;
+            background: linear-gradient(0deg,
+                transparent 0%,
+                rgba(240, 244, 248, 0.1) 25%,
+                rgba(240, 244, 248, 0.2) 50%,
+                rgba(240, 244, 248, 0.1) 75%,
+                transparent 100%
+            );
+        }
+        
+        .tv-beam:nth-child(11) {
+            animation-duration: 50s;
+            animation-delay: 25s;
+            width: 1px;
+            background: linear-gradient(0deg,
+                transparent 0%,
+                rgba(255, 255, 255, 0.3) 35%,
+                rgba(255, 255, 255, 0.6) 50%,
+                rgba(255, 255, 255, 0.3) 65%,
+                transparent 100%
+            );
+            filter: blur(1.5px);
+            box-shadow: 0 0 4px rgba(255, 255, 255, 0.3);
+        }
+        
+        @keyframes digitalShimmer {
+            0%, 100% {
+                text-shadow: 
+                    0 0 5px rgba(255, 255, 255, 0.4),
+                    0 0 10px rgba(0, 255, 128, 0.3);
+                filter: hue-rotate(0deg);
+            }
+            50% {
+                text-shadow: 
+                    0 0 8px rgba(0, 255, 128, 0.6),
+                    0 0 15px rgba(0, 255, 128, 0.3),
+                    0 0 20px rgba(255, 255, 255, 0.2);
+                filter: hue-rotate(5deg);
+            }
+        }
+        
+        @keyframes gradientShift {
+            0%, 80% {
+                opacity: 0;
+                background-position: 0% 50%;
+            }
+            85% {
+                opacity: 0.6;
+                background-position: 50% 50%;
+            }
+            95% {
+                opacity: 0.3;
+                background-position: 100% 50%;
+            }
+            100% {
+                opacity: 0;
+                background-position: 200% 50%;
+            }
+        }
+        
+        @keyframes scanEffect {
+            0%, 90% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            92% {
+                opacity: 0.3;
+            }
+            95% {
+                transform: translateX(100%);
+                opacity: 0.6;
+            }
+            100% {
+                transform: translateX(200%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes slowBreathe {
+            0%, 100% {
+                opacity: 1;
+                transform: translateY(0);
+                text-shadow: 0 0 2px rgba(0, 255, 128, 0.2);
+            }
+            50% {
+                opacity: 0.85;
+                transform: translateY(-1px);
+                text-shadow: 
+                    0 0 4px rgba(0, 255, 128, 0.4),
+                    0 0 8px rgba(0, 255, 128, 0.2);
+            }
+        }
+        
+        @keyframes holoShift {
+            0%, 100% {
+                transform: translateX(0) translateY(0);
+                opacity: 1;
+            }
+            25% {
+                transform: translateX(2px) translateY(-1px);
+                opacity: 0.8;
+            }
+            50% {
+                transform: translateX(-1px) translateY(2px);
+                opacity: 0.9;
+            }
+            75% {
+                transform: translateX(1px) translateY(1px);
+                opacity: 0.85;
+            }
+        }
+        
+        @keyframes dataFlow {
+            0% { top: -10px; opacity: 0; }
+            5% { opacity: 0.8; }
+            95% { opacity: 0.8; }
+            100% { top: 100vh; opacity: 0; }
+        }
+        
+        @keyframes particleFloat {
+            0% {
+                transform: translateY(100vh) translateX(0) scale(0.5);
+                opacity: 0;
+            }
+            10% {
+                opacity: 1;
+            }
+            50% {
+                transform: translateY(50vh) translateX(20px) scale(1);
+                opacity: 0.8;
+            }
+            90% {
+                opacity: 0.4;
+            }
+            100% {
+                transform: translateY(-10vh) translateX(-10px) scale(0.3);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes energyFlow {
+            0% { top: -15px; }
+            100% { top: 100vh; }
+        }
+        
+        @keyframes ambientPulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.6; }
+        }
+        
+        @keyframes holoFlicker {
+            0%, 95% { opacity: 0; }
+            96% { opacity: 0.02; }
+            97% { opacity: 0; }
+            98% { opacity: 0.01; }
+            100% { opacity: 0; }
+        }
+        
+        @keyframes tvFlutter {
+            0%, 100% {
+                filter: contrast(1.1) brightness(0.95) sepia(0.02);
+            }
+            25% {
+                filter: contrast(1.15) brightness(0.97) sepia(0.03);
+            }
+            50% {
+                filter: contrast(1.08) brightness(0.93) sepia(0.01);
+            }
+            75% {
+                filter: contrast(1.12) brightness(0.96) sepia(0.025);
+            }
+        }
+        
+        @keyframes horizontalDrift {
+            0% {
+                top: -10px;
+                transform: scaleX(1) skewX(0deg);
+                opacity: 0.6;
+            }
+            20% {
+                transform: scaleX(0.95) skewX(1deg);
+                opacity: 0.9;
+            }
+            40% {
+                transform: scaleX(1.05) skewX(-0.5deg);
+                opacity: 0.7;
+            }
+            60% {
+                transform: scaleX(0.98) skewX(0.8deg);
+                opacity: 0.8;
+            }
+            80% {
+                transform: scaleX(1.02) skewX(-0.3deg);
+                opacity: 0.6;
+            }
+            100% {
+                top: 110%;
+                transform: scaleX(1) skewX(0deg);
+                opacity: 0.4;
+            }
+        }
+        
+        @keyframes signalRoll {
+            0% {
+                top: -20px;
+                opacity: 0.8;
+            }
+            100% {
+                top: 110%;
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes staticBandMove {
+            0% {
+                top: -10px;
+                transform: scaleX(1) translateX(0);
+            }
+            25% {
+                transform: scaleX(0.9) translateX(-2px);
+            }
+            50% {
+                transform: scaleX(1.1) translateX(1px);
+            }
+            75% {
+                transform: scaleX(0.95) translateX(-1px);
+            }
+            100% {
+                top: 110%;
+                transform: scaleX(1) translateX(0);
+            }
+        }
+        
+        @keyframes contentDisplace {
+            0%, 95% {
+                background: transparent;
+            }
+            96% {
+                background: linear-gradient(0deg,
+                    transparent 0%,
+                    rgba(255, 255, 255, 0.1) 45%,
+                    rgba(0, 0, 0, 0.2) 55%,
+                    transparent 100%
+                );
+            }
+            98% {
+                background: transparent;
+            }
+            99% {
+                background: linear-gradient(0deg,
+                    transparent 0%,
+                    rgba(0, 255, 128, 0.08) 48%,
+                    rgba(0, 0, 0, 0.15) 52%,
+                    transparent 100%
+                );
+            }
+            100% {
+                background: transparent;
+            }
+        }
+        
+        @keyframes screenShake {
+            0%, 94% {
+                transform: translate(0, 0);
+            }
+            95% {
+                transform: translate(1px, -1px);
+            }
+            96% {
+                transform: translate(-1.5px, 1px);
+            }
+            97% {
+                transform: translate(1px, 0.5px);
+            }
+            98% {
+                transform: translate(-0.5px, -1px);
+            }
+            99% {
+                transform: translate(0.8px, -0.8px);
+            }
+            100% {
+                transform: translate(-1px, 1px);
+            }
+        }
+        
+        @keyframes tvBeamSweep {
+            0% {
+                left: -15px;
+                opacity: 0;
+                transform: scaleY(0.7) scaleX(0.5);
+            }
+            3% {
+                opacity: 0.4;
+                transform: scaleY(1.3) scaleX(1.2);
+            }
+            7% {
+                opacity: 0.8;
+                transform: scaleY(1.1) scaleX(1);
+            }
+            10% {
+                opacity: 1;
+                transform: scaleY(1) scaleX(1);
+            }
+            85% {
+                opacity: 1;
+                transform: scaleY(1) scaleX(1);
+            }
+            90% {
+                opacity: 0.8;
+                transform: scaleY(1.1) scaleX(1);
+            }
+            95% {
+                opacity: 0.4;
+                transform: scaleY(1.3) scaleX(1.2);
+            }
+            100% {
+                left: 115%;
+                opacity: 0;
+                transform: scaleY(0.7) scaleX(0.5);
+            }
+        }
+        
+        /* Minimal TV animations */
+        @keyframes subtleDrift {
+            0%, 100% {
+                transform: translateX(0);
+            }
+            50% {
+                transform: translateX(0.5px);
+            }
+        }
+        
+        @keyframes subtleGlow {
+            0%, 100% {
+                color: #f0f4f8;
+                text-shadow: 0 0 8px rgba(240, 244, 248, 0.3);
+            }
+            50% {
+                color: #e2e8f0;
+                text-shadow: 0 0 12px rgba(240, 244, 248, 0.4);
+            }
+        }
+        
+        @keyframes scanBeam {
+            0% {
+                transform: translateX(-100%);
+                opacity: 0;
+            }
+            2% {
+                opacity: 0.5;
+            }
+            98% {
+                opacity: 0.5;
+            }
+            100% {
+                transform: translateX(100%);
+                opacity: 0;
+            }
+        }
+        
+        @keyframes minimalScan {
+            0% {
+                top: -2px;
+                opacity: 0.8;
+            }
+            100% {
+                top: 100vh;
+                opacity: 0.2;
+            }
+        }
+        
+        @keyframes subtleFlicker {
+            0%, 99% {
+                filter: contrast(1.05) brightness(1.02);
+            }
+            99.5% {
+                filter: contrast(1.06) brightness(1.01);
+            }
+            100% {
+                filter: contrast(1.05) brightness(1.02);
+            }
+        }
+        
+        @keyframes scanlineDisplacement {
+            0%, 90% {
+                clip-path: inset(0 0 0 0);
+                transform: translateX(0);
+            }
+            91% {
+                clip-path: inset(0 0 75% 0);
+                transform: translateX(3px);
+            }
+            92% {
+                clip-path: inset(25% 0 50% 0);
+                transform: translateX(-2px);
+            }
+            93% {
+                clip-path: inset(50% 0 25% 0);
+                transform: translateX(4px);
+            }
+            94% {
+                clip-path: inset(75% 0 0 0);
+                transform: translateX(-1px);
+            }
+            95%, 100% {
+                clip-path: inset(0 0 0 0);
+                transform: translateX(0);
+            }
+        }
+        
+        @keyframes redChannelGlitch {
+            0%, 88% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.8;
+            }
+            89% {
+                transform: translateX(2px) translateY(0);
+                opacity: 0.9;
+            }
+            90% {
+                transform: translateX(-3px) translateY(1px);
+                opacity: 0.7;
+            }
+            91% {
+                transform: translateX(4px) translateY(-1px);
+                opacity: 0.8;
+            }
+            92% {
+                transform: translateX(-2px) translateY(0);
+                opacity: 0.9;
+            }
+            93%, 100% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.8;
+            }
+        }
+        
+        @keyframes blueChannelGlitch {
+            0%, 86% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.6;
+            }
+            87% {
+                transform: translateX(-2px) translateY(1px);
+                opacity: 0.8;
+            }
+            88% {
+                transform: translateX(3px) translateY(-1px);
+                opacity: 0.5;
+            }
+            89% {
+                transform: translateX(-4px) translateY(0);
+                opacity: 0.7;
+            }
+            90% {
+                transform: translateX(1px) translateY(1px);
+                opacity: 0.9;
+            }
+            91%, 100% {
+                transform: translateX(0) translateY(0);
+                opacity: 0.6;
+            }
+        }
+        
+        @keyframes signalDropout {
+            0%, 88% {
+                clip-path: inset(0 0 0 0);
+                opacity: 1;
+            }
+            89% {
+                clip-path: inset(0 0 60% 0);
+                opacity: 0.3;
+            }
+            90% {
+                clip-path: inset(40% 0 20% 0);
+                opacity: 0;
+            }
+            91% {
+                clip-path: inset(80% 0 0 0);
+                opacity: 0.5;
+            }
+            92% {
+                clip-path: inset(0 0 0 0);
+                opacity: 1;
+            }
+            93% {
+                clip-path: inset(0 30% 0 0);
+                opacity: 0.2;
+            }
+            94% {
+                clip-path: inset(0 0 0 70%);
+                opacity: 0.7;
+            }
+            95%, 100% {
+                clip-path: inset(0 0 0 0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes ghostImage {
+            0%, 85% {
+                opacity: 0;
+                transform: translateX(2px) translateY(1px);
+            }
+            86% {
+                opacity: 0.4;
+                transform: translateX(4px) translateY(2px);
+            }
+            87% {
+                opacity: 0.6;
+                transform: translateX(6px) translateY(1px);
+            }
+            88% {
+                opacity: 0.3;
+                transform: translateX(3px) translateY(3px);
+            }
+            89% {
+                opacity: 0.5;
+                transform: translateX(8px) translateY(0px);
+            }
+            90% {
+                opacity: 0.2;
+                transform: translateX(5px) translateY(2px);
+            }
+            91%, 100% {
+                opacity: 0;
+                transform: translateX(2px) translateY(1px);
+            }
+        }
+        
+        @media (max-width: 640px) {
+            body { 
+                padding: 1rem;
+                filter: none;
+            }
+            .container { 
+                max-width: none;
+                animation: none;
+            }
+            .name {
+                text-shadow: none;
+                animation: none;
+            }
+            .name::after { display: none; }
+            .tagline, .statement, .vision { animation: none; }
+            .contact a { text-shadow: none; }
+            .holo-grid,
+            .holo-vignette,
+            .data-stream,
+            .particle-field,
+            .energy-wave,
+            .holo-ambient,
+            .holo-interference,
+            .tv-beam,
+            .wave-distort,
+            .horizontal-sync,
+            .signal-roll,
+            .static-band,
+            .content-jitter { display: none; }
+        }
+    </style>
+</head>
+<body>
+    <div class="wave-distort"></div>
+    <div class="holo-grid"></div>
+    <div class="holo-vignette"></div>
+    <div class="data-stream"></div>
+    <div class="particle-field" id="particles"></div>
+    <div class="energy-wave"></div>
+    <div class="holo-ambient"></div>
+    <div class="holo-interference"></div>
+    <div class="tv-beam" id="beam1"></div>
+    <div class="tv-beam" id="beam2"></div>
+    
+    <!-- Realistic TV glitch effects -->
+    <div class="horizontal-sync" id="hsync1"></div>
+    <div class="signal-roll" id="sroll1"></div>
+    <div class="static-band" id="sband1"></div>
+    
+    <div class="container">
+        <div class="name">Tuan Nguyen</div>
+        <div class="tagline"><span id="experience-years">12</span>+ years of experience</div>
+        <div class="statement">Love building products</div>
+        <div class="vision">Big bet: future of AI agents</div>
+        <div class="contact">
+            <a href="mailto:tuannd.dev@gmail.com">Email</a> • 
+            <a href="https://github.com/tuan3w">GitHub</a> • 
+            <a href="./assets/resume.pdf">Resume</a>
+        </div>
+    </div>
+    
+    <script>
+        // Calculate experience years
+        const careerStartYear = 2013;
+        const currentYear = new Date().getFullYear();
+        const experienceYears = currentYear - careerStartYear;
+        document.getElementById('experience-years').textContent = experienceYears;
+        
+        // Create floating particles
+        function createParticles() {
+            const particleField = document.getElementById('particles');
+            const particleCount = 12;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.className = 'particle';
+                particle.style.left = Math.random() * 100 + '%';
+                particle.style.animationDelay = Math.random() * 20 + 's';
+                particle.style.animationDuration = (Math.random() * 10 + 20) + 's';
+                particleField.appendChild(particle);
+            }
+        }
+        
+        // Gentle TV beam randomization
+        function randomizeTVBeams() {
+            const beams = ['beam1', 'beam2'];
+            const baseDurations = [60, 80];
+            const delays = [0, 30];
+            
+            beams.forEach((id, index) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.style.animationDuration = baseDurations[index] + 's';
+                    element.style.animationDelay = delays[index] + 's';
+                    
+                    // Very gentle random variations
+                    setInterval(() => {
+                        const variation = Math.random() * 10 - 5; // -5 to +5 seconds
+                        const newDuration = Math.max(50, baseDurations[index] + variation);
+                        element.style.animationDuration = newDuration + 's';
+                    }, (baseDurations[index] * 1000) + Math.random() * 20000);
+                }
+            });
+        }
+        
+        // Create dynamic random scan lines that appear and disappear
+        function createRandomScanLines() {
+            const container = document.body;
+            
+            // Create multiple scan lines dynamically
+            for (let i = 0; i < 3; i++) {
+                const scanLine = document.createElement('div');
+                scanLine.className = 'dynamic-scan-line';
+                scanLine.style.cssText = `
+                    position: fixed;
+                    left: 0;
+                    width: 100%;
+                    height: 1px;
+                    background: linear-gradient(90deg, 
+                        transparent 0%,
+                        rgba(240, 244, 248, 0.1) 20%,
+                        rgba(240, 244, 248, 0.3) 50%,
+                        rgba(240, 244, 248, 0.1) 80%,
+                        transparent 100%);
+                    pointer-events: none;
+                    z-index: 7;
+                    opacity: 0;
+                    top: ${Math.random() * 100}%;
+                    box-shadow: 0 0 1px rgba(240, 244, 248, 0.1);
+                `;
+                
+                container.appendChild(scanLine);
+                
+                // Random animation for each line
+                const animateScanLine = () => {
+                    const startTop = Math.random() * 100;
+                    const endTop = Math.random() * 100;
+                    const duration = Math.random() * 300 + 200; // 200-500s
+                    const delay = Math.random() * 120; // 0-120s
+                    
+                    scanLine.style.top = startTop + '%';
+                    scanLine.style.opacity = '0';
+                    
+                    setTimeout(() => {
+                        scanLine.style.transition = `top ${duration}s linear, opacity 2s ease-in-out`;
+                        scanLine.style.top = endTop + '%';
+                        scanLine.style.opacity = Math.random() * 0.8 + 0.2; // 0.2-1.0
+                        
+                        setTimeout(() => {
+                            scanLine.style.opacity = '0';
+                            setTimeout(animateScanLine, Math.random() * 60000 + 30000); // 30-90s wait
+                        }, duration * 1000 - 2000);
+                    }, delay * 1000);
+                };
+                
+                // Start first animation
+                setTimeout(animateScanLine, Math.random() * 30000);
+            }
+        }
+        
+        // Randomize static scan line
+        function initializeRandomizedEffects() {
+            // Randomize the main scan line
+            const scanLine = document.getElementById('hsync1');
+            if (scanLine) {
+                const randomDelay = Math.random() * 100;
+                const randomDuration = Math.random() * 200 + 250;
+                const randomStartTop = Math.random() * 100;
+                
+                scanLine.style.animationDelay = randomDelay + 's';
+                scanLine.style.animationDuration = randomDuration + 's';
+                scanLine.style.top = randomStartTop + '%';
+                
+                // Continuously randomize
+                setInterval(() => {
+                    const newTop = Math.random() * 100;
+                    const newDuration = Math.random() * 200 + 250;
+                    scanLine.style.top = newTop + '%';
+                    scanLine.style.animationDuration = newDuration + 's';
+                }, Math.random() * 60000 + 30000);
+            }
+            
+            // Randomize name glow
+            const nameElement = document.querySelector('.name');
+            if (nameElement) {
+                const nameDelay = Math.random() * 60;
+                nameElement.style.animationDelay = nameDelay + 's';
+            }
+        }
+        
+        // Enhanced TV beam randomization
+        function randomizeTVBeams() {
+            const beams = ['beam1', 'beam2'];
+            
+            beams.forEach((id, index) => {
+                const element = document.getElementById(id);
+                if (element) {
+                    // Random initial settings
+                    const randomDelay = Math.random() * 120; // 0-120s
+                    const randomDuration = Math.random() * 100 + 80; // 80-180s
+                    const randomHeight = Math.random() * 40 + 80; // 80-120% height
+                    
+                    element.style.animationDelay = randomDelay + 's';
+                    element.style.animationDuration = randomDuration + 's';
+                    element.style.height = randomHeight + '%';
+                    
+                    // Continuous randomization during runtime
+                    setInterval(() => {
+                        const newDelay = Math.random() * 30;
+                        const newDuration = Math.random() * 100 + 80;
+                        const newHeight = Math.random() * 40 + 80;
+                        const newOpacity = Math.random() * 0.3 + 0.7; // 0.7-1.0
+                        
+                        element.style.animationDelay = newDelay + 's';
+                        element.style.animationDuration = newDuration + 's';
+                        element.style.height = newHeight + '%';
+                        element.style.opacity = newOpacity;
+                        
+                        // Occasionally pause the beam
+                        if (Math.random() < 0.1) {
+                            element.style.animationPlayState = 'paused';
+                            setTimeout(() => {
+                                element.style.animationPlayState = 'running';
+                            }, Math.random() * 5000 + 1000);
+                        }
+                    }, Math.random() * 45000 + 15000); // 15-60s intervals
+                }
+            });
+        }
+        
+        // Initialize randomized effects
+        createParticles();
+        randomizeTVBeams();
+        initializeRandomizedEffects();
+    </script>
+</body>
+</html>
